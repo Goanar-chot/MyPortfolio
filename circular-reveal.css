@@ -1,0 +1,200 @@
+/* Circular Reveal Animation Styles */
+.circular-reveal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at var(--click-x, 50%) var(--click-y, 50%), 
+                transparent 0%, 
+                transparent var(--reveal-size, 0%), 
+                rgba(0, 123, 255, 0.95) var(--reveal-size, 0%));
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.circular-reveal-overlay.active {
+    opacity: 1;
+}
+
+/* Section content animation states */
+.section-content {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.section-content.revealing {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.section-content.revealed {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Enhanced section headers for better click detection */
+.section-header {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.section-header::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s ease;
+    z-index: -1;
+}
+
+.section-header:hover::before {
+    width: 100%;
+    height: 200%;
+}
+
+/* Ripple effect on click */
+.section-header.clicked::before {
+    width: 300%;
+    height: 300%;
+    background: rgba(0, 123, 255, 0.2);
+}
+
+/* Loading spinner for content transition */
+.content-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(0, 123, 255, 0.3);
+    border-top: 3px solid #007BFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    opacity: 0;
+    z-index: 10;
+}
+
+.content-loader.active {
+    opacity: 1;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Smooth section transitions */
+.section-collapsed .section-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+}
+
+.section-expanded .section-content {
+    max-height: 2000px;
+    opacity: 1;
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+}
+
+/* Arrow transitions */
+.section-arrow {
+    transition: transform 0.3s ease;
+}
+
+/* Enhanced visual feedback */
+.section-header:active {
+    transform: scale(0.98);
+}
+
+.section-header:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+/* Circular reveal animation keyframes */
+@keyframes circularRevealIn {
+    0% {
+        clip-path: circle(0% at var(--click-x, 50%) var(--click-y, 50%));
+    }
+    100% {
+        clip-path: circle(150% at var(--click-x, 50%) var(--click-y, 50%));
+    }
+}
+
+@keyframes circularRevealOut {
+    0% {
+        clip-path: circle(150% at var(--click-x, 50%) var(--click-y, 50%));
+    }
+    100% {
+        clip-path: circle(0% at var(--click-x, 50%) var(--click-y, 50%));
+    }
+}
+
+/* Apply circular reveal to content */
+.section-content.circular-reveal-in {
+    animation: circularRevealIn 0.6s ease-out forwards;
+}
+
+.section-content.circular-reveal-out {
+    animation: circularRevealOut 0.4s ease-in forwards;
+}
+
+/* Demo notice styling */
+.circular-reveal-demo {
+    margin: 20px 0;
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(0, 123, 255, 0.05));
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.demo-text {
+    color: #007BFF;
+    font-size: 0.95em;
+    margin: 0;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .circular-reveal-overlay {
+        background: radial-gradient(circle at var(--click-x, 50%) var(--click-y, 50%), 
+                    transparent 0%, 
+                    transparent var(--reveal-size, 0%), 
+                    rgba(0, 123, 255, 0.98) var(--reveal-size, 0%));
+    }
+    
+    .content-loader {
+        width: 30px;
+        height: 30px;
+        border-width: 2px;
+    }
+    
+    .circular-reveal-demo {
+        margin: 15px 0;
+        padding: 12px;
+    }
+    
+    .demo-text {
+        font-size: 0.9em;
+    }
+}

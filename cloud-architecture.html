@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Architecture Visualizer - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cloud-styles.css">
+</head>
+<body>
+    <div class="cloud-container">
+        <h1>☁️ Cloud Architecture Visualizer</h1>
+        
+        <!-- Interactive AWS/Azure Diagrams -->
+        <section class="architecture-section">
+            <h2>🏗️ Interactive Cloud Diagrams</h2>
+            
+            <div class="cloud-tabs">
+                <button class="tab-btn active" onclick="showCloudProvider('aws')">AWS Architecture</button>
+                <button class="tab-btn" onclick="showCloudProvider('azure')">Azure Architecture</button>
+                <button class="tab-btn" onclick="showCloudProvider('gcp')">Google Cloud</button>
+            </div>
+            
+            <div class="architecture-diagram" id="aws-diagram">
+                <div class="cloud-region">
+                    <h3>AWS US-East-1</h3>
+                    <div class="vpc-container">
+                        <h4>VPC (10.0.0.0/16)</h4>
+                        
+                        <div class="availability-zones">
+                            <div class="az" data-az="us-east-1a">
+                                <h5>AZ-1a</h5>
+                                <div class="subnet public" onclick="showServiceDetails('public-subnet')">
+                                    <span>Public Subnet</span>
+                                    <div class="service ec2" onclick="showServiceDetails('ec2')">EC2</div>
+                                    <div class="service alb" onclick="showServiceDetails('alb')">ALB</div>
+                                </div>
+                                <div class="subnet private" onclick="showServiceDetails('private-subnet')">
+                                    <span>Private Subnet</span>
+                                    <div class="service rds" onclick="showServiceDetails('rds')">RDS</div>
+                                    <div class="service lambda" onclick="showServiceDetails('lambda')">λ</div>
+                                </div>
+                            </div>
+                            
+                            <div class="az" data-az="us-east-1b">
+                                <h5>AZ-1b</h5>
+                                <div class="subnet public">
+                                    <span>Public Subnet</span>
+                                    <div class="service ec2">EC2</div>
+                                    <div class="service nat" onclick="showServiceDetails('nat')">NAT</div>
+                                </div>
+                                <div class="subnet private">
+                                    <span>Private Subnet</span>
+                                    <div class="service rds">RDS</div>
+                                    <div class="service ecs" onclick="showServiceDetails('ecs')">ECS</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="external-services">
+                            <div class="service s3" onclick="showServiceDetails('s3')">S3</div>
+                            <div class="service cloudfront" onclick="showServiceDetails('cloudfront')">CloudFront</div>
+                            <div class="service route53" onclick="showServiceDetails('route53')">Route53</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="architecture-diagram hidden" id="azure-diagram">
+                <div class="cloud-region">
+                    <h3>Azure East US</h3>
+                    <div class="resource-group">
+                        <h4>Resource Group: Production</h4>
+                        
+                        <div class="vnet-container">
+                            <h5>Virtual Network (10.1.0.0/16)</h5>
+                            <div class="azure-subnets">
+                                <div class="azure-subnet">
+                                    <span>Web Tier</span>
+                                    <div class="service vm" onclick="showServiceDetails('azure-vm')">VM</div>
+                                    <div class="service app-gateway" onclick="showServiceDetails('app-gateway')">App Gateway</div>
+                                </div>
+                                <div class="azure-subnet">
+                                    <span>App Tier</span>
+                                    <div class="service app-service" onclick="showServiceDetails('app-service')">App Service</div>
+                                    <div class="service function" onclick="showServiceDetails('azure-function')">Functions</div>
+                                </div>
+                                <div class="azure-subnet">
+                                    <span>Data Tier</span>
+                                    <div class="service sql-db" onclick="showServiceDetails('sql-db')">SQL DB</div>
+                                    <div class="service cosmos" onclick="showServiceDetails('cosmos')">Cosmos DB</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="architecture-diagram hidden" id="gcp-diagram">
+                <div class="cloud-region">
+                    <h3>Google Cloud US-Central1</h3>
+                    <div class="gcp-project">
+                        <h4>Project: portfolio-demo</h4>
+                        
+                        <div class="gcp-services">
+                            <div class="gcp-compute">
+                                <span>Compute</span>
+                                <div class="service gce" onclick="showServiceDetails('gce')">GCE</div>
+                                <div class="service gke" onclick="showServiceDetails('gke')">GKE</div>
+                            </div>
+                            <div class="gcp-storage">
+                                <span>Storage</span>
+                                <div class="service cloud-storage" onclick="showServiceDetails('cloud-storage')">Cloud Storage</div>
+                                <div class="service cloud-sql" onclick="showServiceDetails('cloud-sql')">Cloud SQL</div>
+                            </div>
+                            <div class="gcp-networking">
+                                <span>Networking</span>
+                                <div class="service load-balancer" onclick="showServiceDetails('load-balancer')">Load Balancer</div>
+                                <div class="service cdn" onclick="showServiceDetails('cdn')">Cloud CDN</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Details Panel -->
+        <section class="service-details-section">
+            <h2>📋 Service Details</h2>
+            <div id="service-details" class="service-details-panel">
+                <p>Click on any service in the diagram above to see detailed information.</p>
+            </div>
+        </section>
+
+        <!-- Cost Calculator Integration -->
+        <section class="cost-calculator-section">
+            <h2>💰 Cloud Cost Calculator</h2>
+            
+            <div class="calculator-grid">
+                <div class="cost-card">
+                    <h3>Compute Costs</h3>
+                    <div class="cost-input">
+                        <label>EC2 Instances:</label>
+                        <input type="number" id="ec2-count" value="2" onchange="calculateCosts()">
+                        <select id="ec2-type" onchange="calculateCosts()">
+                            <option value="t3.micro">t3.micro</option>
+                            <option value="t3.small">t3.small</option>
+                            <option value="m5.large">m5.large</option>
+                        </select>
+                    </div>
+                    <div class="cost-result">
+                        Monthly: $<span id="compute-cost">16.56</span>
+                    </div>
+                </div>
+                
+                <div class="cost-card">
+                    <h3>Storage Costs</h3>
+                    <div class="cost-input">
+                        <label>S3 Storage (GB):</label>
+                        <input type="number" id="s3-storage" value="100" onchange="calculateCosts()">
+                        <label>EBS Storage (GB):</label>
+                        <input type="number" id="ebs-storage" value="50" onchange="calculateCosts()">
+                    </div>
+                    <div class="cost-result">
+                        Monthly: $<span id="storage-cost">7.30</span>
+                    </div>
+                </div>
+                
+                <div class="cost-card">
+                    <h3>Network Costs</h3>
+                    <div class="cost-input">
+                        <label>Data Transfer (GB):</label>
+                        <input type="number" id="data-transfer" value="500" onchange="calculateCosts()">
+                        <label>CloudFront (GB):</label>
+                        <input type="number" id="cloudfront-data" value="200" onchange="calculateCosts()">
+                    </div>
+                    <div class="cost-result">
+                        Monthly: $<span id="network-cost">45.00</span>
+                    </div>
+                </div>
+                
+                <div class="cost-card total-cost">
+                    <h3>Total Monthly Cost</h3>
+                    <div class="total-amount">$<span id="total-cost">68.86</span></div>
+                    <div class="cost-breakdown">
+                        <button onclick="showCostBreakdown()">View Breakdown</button>
+                        <button onclick="exportCostReport()">Export Report</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Infrastructure as Code Examples -->
+        <section class="iac-section">
+            <h2>📜 Infrastructure as Code Examples</h2>
+            
+            <div class="iac-tabs">
+                <button class="iac-tab-btn active" onclick="showIaCExample('terraform')">Terraform</button>
+                <button class="iac-tab-btn" onclick="showIaCExample('cloudformation')">CloudFormation</button>
+                <button class="iac-tab-btn" onclick="showIaCExample('arm')">ARM Template</button>
+            </div>
+            
+            <div class="iac-content">
+                <div id="terraform-example" class="iac-example">
+                    <h4>Terraform Configuration</h4>
+                    <pre><code># Configure AWS Provider
+provider "aws" {
+  region = "us-east-1"
+}
+
+# Create VPC
+resource "aws_vpc" "main" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  tags = {
+    Name = "main-vpc"
+  }
+}
+
+# Create Internet Gateway
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "main-igw"
+  }
+}
+
+# Create Public Subnet
+resource "aws_subnet" "public" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "us-east-1a"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "public-subnet"
+  }
+}</code></pre>
+                </div>
+                
+                <div id="cloudformation-example" class="iac-example hidden">
+                    <h4>CloudFormation Template</h4>
+                    <pre><code>AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Basic VPC with public and private subnets'
+
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: main-vpc
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: main-igw
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: us-east-1a
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: public-subnet</code></pre>
+                </div>
+                
+                <div id="arm-example" class="iac-example hidden">
+                    <h4>Azure ARM Template</h4>
+                    <pre><code>{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2020-06-01",
+      "name": "main-vnet",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.1.0.0/16"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "web-subnet",
+            "properties": {
+              "addressPrefix": "10.1.1.0/24"
+            }
+          },
+          {
+            "name": "app-subnet",
+            "properties": {
+              "addressPrefix": "10.1.2.0/24"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Multi-Cloud Deployment Scenarios -->
+        <section class="deployment-section">
+            <h2>🚀 Multi-Cloud Deployment Scenarios</h2>
+            
+            <div class="scenario-grid">
+                <div class="scenario-card" onclick="showScenario('hybrid')">
+                    <h3>Hybrid Cloud</h3>
+                    <p>On-premises + AWS integration</p>
+                    <div class="scenario-status">Active</div>
+                </div>
+                
+                <div class="scenario-card" onclick="showScenario('multi-cloud')">
+                    <h3>Multi-Cloud</h3>
+                    <p>AWS + Azure + GCP deployment</p>
+                    <div class="scenario-status">Planning</div>
+                </div>
+                
+                <div class="scenario-card" onclick="showScenario('disaster-recovery')">
+                    <h3>Disaster Recovery</h3>
+                    <p>Cross-region backup strategy</p>
+                    <div class="scenario-status">Configured</div>
+                </div>
+                
+                <div class="scenario-card" onclick="showScenario('edge-computing')">
+                    <h3>Edge Computing</h3>
+                    <p>CDN + Edge locations</p>
+                    <div class="scenario-status">Optimized</div>
+                </div>
+            </div>
+            
+            <div id="scenario-details" class="scenario-details">
+                <p>Select a deployment scenario above to see detailed architecture and implementation.</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="cloud-features.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Integration - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="blockchain-styles.css">
+</head>
+<body>
+    <div class="blockchain-container">
+        <h1>🔗 Blockchain & Web3 Integration</h1>
+        
+        <!-- Crypto Portfolio Tracker -->
+        <section class="crypto-section">
+            <h2>💰 Cryptocurrency Portfolio</h2>
+            <div class="crypto-grid">
+                <div class="crypto-card">
+                    <h3>Bitcoin (BTC)</h3>
+                    <div class="price" id="btc-price">$43,250</div>
+                    <div class="change positive">+2.5%</div>
+                </div>
+                <div class="crypto-card">
+                    <h3>Ethereum (ETH)</h3>
+                    <div class="price" id="eth-price">$2,680</div>
+                    <div class="change negative">-1.2%</div>
+                </div>
+                <div class="crypto-card">
+                    <h3>Solana (SOL)</h3>
+                    <div class="price" id="sol-price">$98.50</div>
+                    <div class="change positive">+5.8%</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NFT Showcase -->
+        <section class="nft-section">
+            <h2>🎨 NFT Collection</h2>
+            <div class="nft-gallery">
+                <div class="nft-item">
+                    <div class="nft-image">🖼️</div>
+                    <h3>CyberSec Badge #001</h3>
+                    <p>Verified Security Professional</p>
+                    <button class="verify-btn">Verify on Blockchain</button>
+                </div>
+                <div class="nft-item">
+                    <div class="nft-image">🏆</div>
+                    <h3>IT Excellence Award</h3>
+                    <p>Outstanding Performance 2023</p>
+                    <button class="verify-btn">Verify on Blockchain</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Web3 Wallet Connection -->
+        <section class="wallet-section">
+            <h2>🔐 Web3 Wallet Integration</h2>
+            <button id="connect-wallet" class="wallet-btn">Connect MetaMask</button>
+            <div id="wallet-info" class="wallet-info hidden">
+                <p>Connected: <span id="wallet-address"></span></p>
+                <p>Balance: <span id="wallet-balance"></span> ETH</p>
+            </div>
+        </section>
+
+        <!-- Blockchain Certificates -->
+        <section class="certificates-section">
+            <h2>📜 Blockchain-Verified Certificates</h2>
+            <div class="cert-list">
+                <div class="cert-item">
+                    <h3>CompTIA Security+ Certification</h3>
+                    <p>Hash: 0x1a2b3c4d5e6f...</p>
+                    <button class="verify-cert">Verify Certificate</button>
+                </div>
+                <div class="cert-item">
+                    <h3>AWS Cloud Practitioner</h3>
+                    <p>Hash: 0x7g8h9i0j1k2l...</p>
+                    <button class="verify-cert">Verify Certificate</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="blockchain-features.js"></script>
+</body>
+</html>

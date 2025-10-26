@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Simulator - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="security-styles.css">
+</head>
+<body>
+    <div class="security-container">
+        <h1>🔒 Advanced Cybersecurity Simulator</h1>
+        
+        <!-- Penetration Testing Simulator -->
+        <section class="pentest-section">
+            <h2>🎯 Penetration Testing Simulator</h2>
+            
+            <div class="pentest-grid">
+                <div class="target-system">
+                    <h3>Target System</h3>
+                    <div class="system-info">
+                        <p><strong>IP:</strong> 192.168.1.100</p>
+                        <p><strong>OS:</strong> Ubuntu 20.04</p>
+                        <p><strong>Services:</strong> SSH, HTTP, FTP</p>
+                    </div>
+                    <button onclick="scanPorts()">Port Scan</button>
+                    <div id="scan-results" class="scan-results"></div>
+                </div>
+                
+                <div class="vulnerability-scanner">
+                    <h3>Vulnerability Scanner</h3>
+                    <select id="scan-type">
+                        <option value="basic">Basic Scan</option>
+                        <option value="advanced">Advanced Scan</option>
+                        <option value="aggressive">Aggressive Scan</option>
+                    </select>
+                    <button onclick="runVulnScan()">Run Vulnerability Scan</button>
+                    <div id="vuln-results" class="vuln-results"></div>
+                </div>
+                
+                <div class="exploit-framework">
+                    <h3>Exploit Framework</h3>
+                    <select id="exploit-type">
+                        <option value="buffer-overflow">Buffer Overflow</option>
+                        <option value="sql-injection">SQL Injection</option>
+                        <option value="xss">Cross-Site Scripting</option>
+                    </select>
+                    <button onclick="launchExploit()">Launch Exploit</button>
+                    <div id="exploit-results" class="exploit-results"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Threat Intelligence Map -->
+        <section class="threat-map-section">
+            <h2>🌍 Global Threat Intelligence Map</h2>
+            
+            <div class="threat-map">
+                <div class="map-container">
+                    <div class="threat-indicator" style="top: 20%; left: 30%;" data-threat="DDoS Attack - Germany"></div>
+                    <div class="threat-indicator" style="top: 40%; left: 70%;" data-threat="Malware - China"></div>
+                    <div class="threat-indicator" style="top: 60%; left: 15%;" data-threat="Phishing - USA"></div>
+                    <div class="threat-indicator" style="top: 35%; left: 85%;" data-threat="Ransomware - Russia"></div>
+                </div>
+                
+                <div class="threat-stats">
+                    <div class="stat-item">
+                        <h4>Active Threats</h4>
+                        <div class="stat-value" id="active-threats">1,247</div>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Blocked Attacks</h4>
+                        <div class="stat-value" id="blocked-attacks">8,932</div>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Risk Level</h4>
+                        <div class="stat-value risk-high">HIGH</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Audit Checklist -->
+        <section class="audit-section">
+            <h2>📋 Security Audit Checklist</h2>
+            
+            <div class="audit-categories">
+                <div class="audit-category">
+                    <h3>Network Security</h3>
+                    <div class="checklist">
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Firewall Configuration</label>
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Network Segmentation</label>
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Intrusion Detection</label>
+                        <label><input type="checkbox" onchange="updateAuditScore()"> VPN Security</label>
+                    </div>
+                </div>
+                
+                <div class="audit-category">
+                    <h3>Access Control</h3>
+                    <div class="checklist">
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Multi-Factor Authentication</label>
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Password Policies</label>
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Privilege Management</label>
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Account Monitoring</label>
+                    </div>
+                </div>
+                
+                <div class="audit-category">
+                    <h3>Data Protection</h3>
+                    <div class="checklist">
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Data Encryption</label>
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Backup Security</label>
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Data Classification</label>
+                        <label><input type="checkbox" onchange="updateAuditScore()"> Incident Response</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="audit-score">
+                <h3>Security Score</h3>
+                <div class="score-display">
+                    <div class="score-value" id="security-score">0%</div>
+                    <div class="score-bar">
+                        <div class="score-fill" id="score-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Security Dashboard -->
+        <section class="dashboard-section">
+            <h2>📊 Live Security Dashboard</h2>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Firewall Status</h3>
+                    <div class="status-indicator active">ACTIVE</div>
+                    <p>Blocked: <span id="firewall-blocked">2,847</span> attempts</p>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>Antivirus</h3>
+                    <div class="status-indicator active">PROTECTED</div>
+                    <p>Last scan: <span id="last-scan">2 hours ago</span></p>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>Intrusion Detection</h3>
+                    <div class="status-indicator warning">MONITORING</div>
+                    <p>Alerts: <span id="ids-alerts">12</span> today</p>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>VPN Connections</h3>
+                    <div class="status-indicator active">SECURE</div>
+                    <p>Active: <span id="vpn-connections">47</span> users</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Incident Response Simulator -->
+        <section class="incident-section">
+            <h2>🚨 Incident Response Simulator</h2>
+            
+            <div class="incident-simulator">
+                <div class="incident-controls">
+                    <button onclick="simulateIncident('malware')">Simulate Malware Attack</button>
+                    <button onclick="simulateIncident('ddos')">Simulate DDoS Attack</button>
+                    <button onclick="simulateIncident('breach')">Simulate Data Breach</button>
+                </div>
+                
+                <div class="incident-timeline" id="incident-timeline">
+                    <h3>Incident Timeline</h3>
+                    <div class="timeline-empty">No active incidents</div>
+                </div>
+                
+                <div class="response-actions">
+                    <h3>Response Actions</h3>
+                    <button onclick="containThreat()" disabled id="contain-btn">Contain Threat</button>
+                    <button onclick="investigateIncident()" disabled id="investigate-btn">Investigate</button>
+                    <button onclick="recoverSystems()" disabled id="recover-btn">Recover Systems</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="security-features.js"></script>
+</body>
+</html>

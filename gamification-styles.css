@@ -1,0 +1,430 @@
+/* Gamification Styles */
+.gamification-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    color: white;
+    text-align: center;
+    padding: 60px 40px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gamification-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.1)"/><circle cx="800" cy="300" r="150" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.3;
+}
+
+.progress-overview {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.overall-progress h2 {
+    color: white;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.progress-circle {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+    stroke-dasharray: 327;
+    stroke-dashoffset: 327;
+    transition: stroke-dashoffset 1s ease;
+    stroke-linecap: round;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.progress-percentage {
+    display: block;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #FFD700;
+}
+
+.progress-label {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.progress-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2em;
+    font-weight: 700;
+    color: #FFD700;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+}
+
+/* Achievement Badges */
+.achievements-grid {
+    display: grid;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.achievement-category h3 {
+    color: white;
+    font-size: 1.5em;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.badges-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.badge.locked {
+    opacity: 0.6;
+    filter: grayscale(100%);
+}
+
+.badge.unlocked {
+    border-color: #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    animation: badgeGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes badgeGlow {
+    0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+    100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+}
+
+.badge-icon {
+    font-size: 3em;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.badge-info h4 {
+    color: white;
+    margin: 0 0 8px 0;
+    font-size: 1.2em;
+}
+
+.badge-info p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+}
+
+.badge-progress {
+    color: #FFD700;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+/* Challenges Section */
+.challenges-section {
+    margin-bottom: 50px;
+}
+
+.challenges-section h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.challenge-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 25px;
+    transition: all 0.4s ease;
+}
+
+.challenge-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.challenge-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.challenge-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.4em;
+}
+
+.challenge-difficulty {
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.challenge-difficulty.intermediate {
+    background: linear-gradient(135deg, #ffa726, #ff9800);
+    color: white;
+}
+
+.challenge-difficulty.advanced {
+    background: linear-gradient(135deg, #ef5350, #f44336);
+    color: white;
+}
+
+.challenge-difficulty.expert {
+    background: linear-gradient(135deg, #ab47bc, #9c27b0);
+    color: white;
+}
+
+.challenge-card p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.challenge-btn {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.challenge-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+}
+
+.challenge-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9em;
+}
+
+/* Leaderboard */
+.leaderboard-section {
+    margin-bottom: 50px;
+}
+
+.leaderboard-section h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.leaderboard {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.leaderboard-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.leaderboard-item.rank-1 {
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.leaderboard-item.rank-2 {
+    border: 2px solid #C0C0C0;
+}
+
+.leaderboard-item.rank-3 {
+    border: 2px solid #CD7F32;
+}
+
+.rank {
+    font-size: 2em;
+    font-weight: 700;
+    color: #FFD700;
+    width: 50px;
+    text-align: center;
+}
+
+.player-info {
+    flex: 1;
+}
+
+.player-name {
+    color: white;
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.player-badges {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9em;
+}
+
+.player-score {
+    color: #FFD700;
+    font-weight: 700;
+    font-size: 1.3em;
+}
+
+/* Dark Mode Adjustments */
+body.dark-mode .progress-overview,
+body.dark-mode .badge,
+body.dark-mode .challenge-card,
+body.dark-mode .leaderboard {
+    background: rgba(45, 45, 45, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .achievement-category h3,
+body.dark-mode .challenges-section h2,
+body.dark-mode .leaderboard-section h2 {
+    color: #4A90E2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .gamification-header {
+        padding: 40px 25px;
+    }
+    
+    .progress-overview {
+        padding: 25px;
+    }
+    
+    .progress-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .badges-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .badge {
+        padding: 20px;
+    }
+    
+    .challenge-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .challenge-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .leaderboard-item {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .badge {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .badge-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2em;
+    }
+}

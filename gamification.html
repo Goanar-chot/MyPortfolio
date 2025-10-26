@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievement Center - Goanar Chot</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="premium-styles.css">
+    <link rel="stylesheet" href="gamification-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="gamification-header">
+            <h1>🎮 Achievement Center</h1>
+            <p>Unlock badges by exploring the portfolio and completing challenges!</p>
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+        </header>
+
+        <!-- Progress Overview -->
+        <div class="progress-overview">
+            <div class="overall-progress">
+                <h2>Portfolio Explorer Progress</h2>
+                <div class="progress-circle">
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle class="progress-ring-circle" stroke="#667eea" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                    </svg>
+                    <div class="progress-text">
+                        <span class="progress-percentage">0%</span>
+                        <span class="progress-label">Complete</span>
+                    </div>
+                </div>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="badgesEarned">0</span>
+                        <span class="stat-label">Badges Earned</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="sectionsVisited">0</span>
+                        <span class="stat-label">Sections Visited</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="challengesCompleted">0</span>
+                        <span class="stat-label">Challenges Completed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievement Badges -->
+        <div class="achievements-grid">
+            <div class="achievement-category">
+                <h3><i class="fas fa-eye"></i> Explorer Badges</h3>
+                <div class="badges-container">
+                    <div class="badge locked" data-badge="first-visit">
+                        <div class="badge-icon">🎯</div>
+                        <div class="badge-info">
+                            <h4>First Steps</h4>
+                            <p>Visit the portfolio for the first time</p>
+                            <div class="badge-progress">0/1</div>
+                        </div>
+                    </div>
+                    <div class="badge locked" data-badge="section-explorer">
+                        <div class="badge-icon">🗺️</div>
+                        <div class="badge-info">
+                            <h4>Section Explorer</h4>
+                            <p>Visit all main sections</p>
+                            <div class="badge-progress">0/8</div>
+                        </div>
+                    </div>
+                    <div class="badge locked" data-badge="deep-diver">
+                        <div class="badge-icon">🤿</div>
+                        <div class="badge-info">
+                            <h4>Deep Diver</h4>
+                            <p>Spend 5+ minutes exploring</p>
+                            <div class="badge-progress">0/300</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievement-category">
+                <h3><i class="fas fa-gamepad"></i> Challenge Badges</h3>
+                <div class="badges-container">
+                    <div class="badge locked" data-badge="skill-master">
+                        <div class="badge-icon">🧠</div>
+                        <div class="badge-info">
+                            <h4>Skill Master</h4>
+                            <p>Complete the skills assessment</p>
+                            <div class="badge-progress">0/1</div>
+                        </div>
+                    </div>
+                    <div class="badge locked" data-badge="quiz-champion">
+                        <div class="badge-icon">🏆</div>
+                        <div class="badge-info">
+                            <h4>Quiz Champion</h4>
+                            <p>Score 80%+ on IT knowledge quiz</p>
+                            <div class="badge-progress">0/1</div>
+                        </div>
+                    </div>
+                    <div class="badge locked" data-badge="security-expert">
+                        <div class="badge-icon">🔒</div>
+                        <div class="badge-info">
+                            <h4>Security Expert</h4>
+                            <p>Complete cybersecurity challenge</p>
+                            <div class="badge-progress">0/1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievement-category">
+                <h3><i class="fas fa-star"></i> Special Badges</h3>
+                <div class="badges-container">
+                    <div class="badge locked" data-badge="easter-egg">
+                        <div class="badge-icon">🥚</div>
+                        <div class="badge-info">
+                            <h4>Easter Egg Hunter</h4>
+                            <p>Find the hidden easter egg</p>
+                            <div class="badge-progress">0/1</div>
+                        </div>
+                    </div>
+                    <div class="badge locked" data-badge="social-connector">
+                        <div class="badge-icon">🤝</div>
+                        <div class="badge-info">
+                            <h4>Social Connector</h4>
+                            <p>Connect on social media</p>
+                            <div class="badge-progress">0/1</div>
+                        </div>
+                    </div>
+                    <div class="badge locked" data-badge="portfolio-master">
+                        <div class="badge-icon">👑</div>
+                        <div class="badge-info">
+                            <h4>Portfolio Master</h4>
+                            <p>Unlock all other badges</p>
+                            <div class="badge-progress">0/8</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Challenges -->
+        <div class="challenges-section">
+            <h2>🎯 Interactive Challenges</h2>
+            
+            <!-- IT Knowledge Quiz -->
+            <div class="challenge-card">
+                <div class="challenge-header">
+                    <h3>💻 IT Knowledge Quiz</h3>
+                    <div class="challenge-difficulty">Intermediate</div>
+                </div>
+                <p>Test your IT support and cybersecurity knowledge with this interactive quiz!</p>
+                <button class="challenge-btn" onclick="startQuiz()">
+                    <i class="fas fa-play"></i> Start Challenge
+                </button>
+                <div class="challenge-stats">
+                    <span>⏱️ 10 minutes</span>
+                    <span>❓ 15 questions</span>
+                    <span>🎯 80% to pass</span>
+                </div>
+            </div>
+
+            <!-- Network Troubleshooting Simulator -->
+            <div class="challenge-card">
+                <div class="challenge-header">
+                    <h3>🌐 Network Troubleshooting</h3>
+                    <div class="challenge-difficulty">Advanced</div>
+                </div>
+                <p>Diagnose and fix network issues in this interactive simulation!</p>
+                <button class="challenge-btn" onclick="startNetworkSim()">
+                    <i class="fas fa-play"></i> Start Simulation
+                </button>
+                <div class="challenge-stats">
+                    <span>⏱️ 15 minutes</span>
+                    <span>🔧 5 scenarios</span>
+                    <span>🎯 All fixed to pass</span>
+                </div>
+            </div>
+
+            <!-- Security Incident Response -->
+            <div class="challenge-card">
+                <div class="challenge-header">
+                    <h3>🛡️ Security Incident Response</h3>
+                    <div class="challenge-difficulty">Expert</div>
+                </div>
+                <p>Handle a cybersecurity incident like a SOC analyst!</p>
+                <button class="challenge-btn" onclick="startSecuritySim()">
+                    <i class="fas fa-play"></i> Start Incident
+                </button>
+                <div class="challenge-stats">
+                    <span>⏱️ 20 minutes</span>
+                    <span>🚨 Live scenario</span>
+                    <span>🎯 Contain threat</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="leaderboard-section">
+            <h2>🏆 Portfolio Explorer Leaderboard</h2>
+            <div class="leaderboard">
+                <div class="leaderboard-item rank-1">
+                    <div class="rank">1</div>
+                    <div class="player-info">
+                        <div class="player-name">Anonymous Explorer</div>
+                        <div class="player-badges">8 badges • 100% complete</div>
+                    </div>
+                    <div class="player-score">2,500 pts</div>
+                </div>
+                <div class="leaderboard-item rank-2">
+                    <div class="rank">2</div>
+                    <div class="player-info">
+                        <div class="player-name">Tech Enthusiast</div>
+                        <div class="player-badges">6 badges • 75% complete</div>
+                    </div>
+                    <div class="player-score">1,800 pts</div>
+                </div>
+                <div class="leaderboard-item rank-3">
+                    <div class="rank">3</div>
+                    <div class="player-info">
+                        <div class="player-name">IT Professional</div>
+                        <div class="player-badges">5 badges • 62% complete</div>
+                    </div>
+                    <div class="player-score">1,250 pts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="quiz-modal">
+        <div class="quiz-content">
+            <div class="quiz-header">
+                <h3>IT Knowledge Quiz</h3>
+                <div class="quiz-progress">
+                    <span id="questionNumber">1</span> / <span id="totalQuestions">15</span>
+                </div>
+                <button class="close-quiz">&times;</button>
+            </div>
+            <div class="quiz-body">
+                <div class="question-container">
+                    <h4 id="questionText">Loading question...</h4>
+                    <div class="answers-container" id="answersContainer">
+                        <!-- Dynamic answers -->
+                    </div>
+                </div>
+                <div class="quiz-controls">
+                    <button id="nextQuestion" class="quiz-btn">Next Question</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="javascript.js"></script>
+    <script src="premium-animations.js"></script>
+    <script src="gamification-features.js"></script>
+</body>
+</html>

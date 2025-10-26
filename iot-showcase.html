@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT & Hardware Showcase - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="iot-styles.css">
+</head>
+<body>
+    <div class="iot-container">
+        <h1>🔧 IoT & Hardware Integration Showcase</h1>
+        
+        <!-- Raspberry Pi Projects -->
+        <section class="raspberry-section">
+            <h2>🍓 Raspberry Pi Projects</h2>
+            
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>Smart Home Security System</h3>
+                    <div class="device-status">
+                        <div class="status-light active"></div>
+                        <span>Online</span>
+                    </div>
+                    <div class="project-details">
+                        <p><strong>Components:</strong> Pi 4, Camera Module, PIR Sensors</p>
+                        <p><strong>Features:</strong> Motion detection, Live streaming, Alerts</p>
+                        <p><strong>Language:</strong> Python, OpenCV</p>
+                    </div>
+                    <button onclick="viewProject('security')">View Live Demo</button>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Weather Monitoring Station</h3>
+                    <div class="device-status">
+                        <div class="status-light active"></div>
+                        <span>Collecting Data</span>
+                    </div>
+                    <div class="project-details">
+                        <p><strong>Sensors:</strong> DHT22, BMP280, Rain Sensor</p>
+                        <p><strong>Data:</strong> Temperature, Humidity, Pressure</p>
+                        <p><strong>Storage:</strong> InfluxDB, Grafana Dashboard</p>
+                    </div>
+                    <button onclick="viewProject('weather')">View Dashboard</button>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Network Monitoring Tool</h3>
+                    <div class="device-status">
+                        <div class="status-light warning"></div>
+                        <span>Monitoring</span>
+                    </div>
+                    <div class="project-details">
+                        <p><strong>Function:</strong> Network traffic analysis</p>
+                        <p><strong>Tools:</strong> Wireshark, Nmap, Custom scripts</p>
+                        <p><strong>Alerts:</strong> Suspicious activity detection</p>
+                    </div>
+                    <button onclick="viewProject('network')">View Logs</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Arduino Demonstrations -->
+        <section class="arduino-section">
+            <h2>🔌 Arduino Demonstrations</h2>
+            
+            <div class="arduino-grid">
+                <div class="arduino-card">
+                    <h3>Smart LED Controller</h3>
+                    <div class="led-simulator">
+                        <div class="led red" id="led-red"></div>
+                        <div class="led green" id="led-green"></div>
+                        <div class="led blue" id="led-blue"></div>
+                    </div>
+                    <div class="controls">
+                        <button onclick="toggleLED('red')">Toggle Red</button>
+                        <button onclick="toggleLED('green')">Toggle Green</button>
+                        <button onclick="toggleLED('blue')">Toggle Blue</button>
+                        <button onclick="runLightShow()">Light Show</button>
+                    </div>
+                </div>
+                
+                <div class="arduino-card">
+                    <h3>Sensor Data Display</h3>
+                    <div class="sensor-data">
+                        <div class="sensor-reading">
+                            <h4>Temperature</h4>
+                            <div class="reading-value" id="temp-reading">23.5°C</div>
+                        </div>
+                        <div class="sensor-reading">
+                            <h4>Humidity</h4>
+                            <div class="reading-value" id="humidity-reading">65%</div>
+                        </div>
+                        <div class="sensor-reading">
+                            <h4>Light Level</h4>
+                            <div class="reading-value" id="light-reading">450 lux</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="arduino-card">
+                    <h3>Motor Control System</h3>
+                    <div class="motor-simulator">
+                        <div class="motor" id="motor-display">
+                            <div class="motor-shaft"></div>
+                        </div>
+                        <div class="motor-controls">
+                            <button onclick="controlMotor('forward')">Forward</button>
+                            <button onclick="controlMotor('reverse')">Reverse</button>
+                            <button onclick="controlMotor('stop')">Stop</button>
+                        </div>
+                        <div class="speed-control">
+                            <label>Speed: <input type="range" id="motor-speed" min="0" max="100" value="50" onchange="updateMotorSpeed()"></label>
+                            <span id="speed-display">50%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Smart Home Automation -->
+        <section class="smart-home-section">
+            <h2>🏠 Smart Home Automation Display</h2>
+            
+            <div class="home-layout">
+                <div class="room" data-room="living">
+                    <h3>Living Room</h3>
+                    <div class="device-controls">
+                        <div class="device">
+                            <span>Lights</span>
+                            <button class="toggle-btn" onclick="toggleDevice('living-lights')">OFF</button>
+                        </div>
+                        <div class="device">
+                            <span>TV</span>
+                            <button class="toggle-btn" onclick="toggleDevice('living-tv')">OFF</button>
+                        </div>
+                        <div class="device">
+                            <span>AC</span>
+                            <button class="toggle-btn" onclick="toggleDevice('living-ac')">OFF</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="room" data-room="kitchen">
+                    <h3>Kitchen</h3>
+                    <div class="device-controls">
+                        <div class="device">
+                            <span>Lights</span>
+                            <button class="toggle-btn" onclick="toggleDevice('kitchen-lights')">OFF</button>
+                        </div>
+                        <div class="device">
+                            <span>Coffee Maker</span>
+                            <button class="toggle-btn" onclick="toggleDevice('kitchen-coffee')">OFF</button>
+                        </div>
+                        <div class="device">
+                            <span>Refrigerator</span>
+                            <button class="toggle-btn active">ON</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="room" data-room="bedroom">
+                    <h3>Bedroom</h3>
+                    <div class="device-controls">
+                        <div class="device">
+                            <span>Lights</span>
+                            <button class="toggle-btn" onclick="toggleDevice('bedroom-lights')">OFF</button>
+                        </div>
+                        <div class="device">
+                            <span>Fan</span>
+                            <button class="toggle-btn" onclick="toggleDevice('bedroom-fan')">OFF</button>
+                        </div>
+                        <div class="device">
+                            <span>Security Cam</span>
+                            <button class="toggle-btn active">ON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="automation-controls">
+                <h3>Automation Scenarios</h3>
+                <button onclick="runScenario('morning')">Morning Routine</button>
+                <button onclick="runScenario('evening')">Evening Routine</button>
+                <button onclick="runScenario('away')">Away Mode</button>
+                <button onclick="runScenario('sleep')">Sleep Mode</button>
+            </div>
+        </section>
+
+        <!-- Hardware Troubleshooting Guide -->
+        <section class="troubleshooting-section">
+            <h2>🔧 Hardware Troubleshooting Guide</h2>
+            
+            <div class="troubleshooting-tool">
+                <div class="problem-selector">
+                    <h3>Select Hardware Issue:</h3>
+                    <select id="hardware-problem" onchange="showTroubleshooting()">
+                        <option value="">Choose a problem...</option>
+                        <option value="boot-failure">System Won't Boot</option>
+                        <option value="overheating">Overheating Issues</option>
+                        <option value="network-connectivity">Network Connectivity</option>
+                        <option value="sensor-malfunction">Sensor Malfunction</option>
+                        <option value="power-issues">Power Supply Issues</option>
+                    </select>
+                </div>
+                
+                <div id="troubleshooting-steps" class="troubleshooting-steps">
+                    <p>Select a problem to see troubleshooting steps...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- IoT Security Dashboard -->
+        <section class="iot-security-section">
+            <h2>🔒 IoT Security Dashboard</h2>
+            
+            <div class="security-grid">
+                <div class="security-card">
+                    <h3>Device Security Status</h3>
+                    <div class="device-list">
+                        <div class="device-item secure">
+                            <span>Raspberry Pi 4</span>
+                            <div class="security-status">SECURE</div>
+                        </div>
+                        <div class="device-item warning">
+                            <span>Arduino Uno</span>
+                            <div class="security-status">UPDATE NEEDED</div>
+                        </div>
+                        <div class="device-item secure">
+                            <span>ESP32 Module</span>
+                            <div class="security-status">SECURE</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="security-card">
+                    <h3>Network Traffic</h3>
+                    <div class="traffic-monitor">
+                        <div class="traffic-item">
+                            <span>Inbound:</span>
+                            <span id="inbound-traffic">2.4 MB/s</span>
+                        </div>
+                        <div class="traffic-item">
+                            <span>Outbound:</span>
+                            <span id="outbound-traffic">1.8 MB/s</span>
+                        </div>
+                        <div class="traffic-item">
+                            <span>Suspicious:</span>
+                            <span id="suspicious-traffic">0 packets</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="security-card">
+                    <h3>Firmware Updates</h3>
+                    <div class="update-list">
+                        <div class="update-item">
+                            <span>Raspberry Pi OS</span>
+                            <button class="update-btn">Up to Date</button>
+                        </div>
+                        <div class="update-item">
+                            <span>Arduino IDE</span>
+                            <button class="update-btn warning">Update Available</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="iot-features.js"></script>
+</body>
+</html>

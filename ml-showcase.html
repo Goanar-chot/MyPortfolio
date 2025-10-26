@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Showcase - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="ml-styles.css">
+</head>
+<body>
+    <div class="ml-container">
+        <h1>🤖 Machine Learning & AI Showcase</h1>
+        
+        <!-- Live ML Model Demo -->
+        <section class="ml-demo-section">
+            <h2>🧠 Live ML Model Demonstrations</h2>
+            
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Sentiment Analysis</h3>
+                    <textarea id="sentiment-input" placeholder="Enter text to analyze sentiment..."></textarea>
+                    <button onclick="analyzeSentiment()">Analyze Sentiment</button>
+                    <div id="sentiment-result" class="result-display"></div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Text Classification</h3>
+                    <textarea id="classification-input" placeholder="Enter text to classify..."></textarea>
+                    <button onclick="classifyText()">Classify Text</button>
+                    <div id="classification-result" class="result-display"></div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Predictive Analytics</h3>
+                    <input type="number" id="data-input" placeholder="Enter numeric value">
+                    <button onclick="predictValue()">Predict Trend</button>
+                    <canvas id="prediction-chart" width="300" height="200"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Computer Vision Projects -->
+        <section class="cv-section">
+            <h2>👁️ Computer Vision Projects</h2>
+            
+            <div class="cv-demos">
+                <div class="cv-card">
+                    <h3>Image Recognition</h3>
+                    <div class="image-upload-area" id="image-drop-zone">
+                        <p>Drop an image here or click to upload</p>
+                        <input type="file" id="image-input" accept="image/*" hidden>
+                    </div>
+                    <div id="image-results" class="cv-results"></div>
+                </div>
+                
+                <div class="cv-card">
+                    <h3>Face Detection</h3>
+                    <video id="video-feed" width="320" height="240" autoplay></video>
+                    <button onclick="startFaceDetection()">Start Detection</button>
+                    <canvas id="face-canvas" width="320" height="240"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- NLP Processing -->
+        <section class="nlp-section">
+            <h2>💬 Natural Language Processing</h2>
+            
+            <div class="nlp-tools">
+                <div class="nlp-card">
+                    <h3>Text Summarization</h3>
+                    <textarea id="text-to-summarize" placeholder="Enter long text to summarize..."></textarea>
+                    <button onclick="summarizeText()">Generate Summary</button>
+                    <div id="summary-result" class="nlp-result"></div>
+                </div>
+                
+                <div class="nlp-card">
+                    <h3>Language Detection</h3>
+                    <textarea id="language-input" placeholder="Enter text in any language..."></textarea>
+                    <button onclick="detectLanguage()">Detect Language</button>
+                    <div id="language-result" class="nlp-result"></div>
+                </div>
+                
+                <div class="nlp-card">
+                    <h3>Keyword Extraction</h3>
+                    <textarea id="keyword-input" placeholder="Enter text to extract keywords..."></textarea>
+                    <button onclick="extractKeywords()">Extract Keywords</button>
+                    <div id="keywords-result" class="nlp-result"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Model Performance -->
+        <section class="performance-section">
+            <h2>📊 Model Performance Metrics</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Accuracy Score</h3>
+                    <div class="metric-value">94.7%</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 94.7%"></div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>Precision</h3>
+                    <div class="metric-value">91.2%</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 91.2%"></div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>Recall</h3>
+                    <div class="metric-value">89.8%</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 89.8%"></div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>F1-Score</h3>
+                    <div class="metric-value">90.5%</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 90.5%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="ml-features.js"></script>
+</body>
+</html>

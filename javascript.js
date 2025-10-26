@@ -124,7 +124,7 @@ document.getElementById('feedbackForm').addEventListener('submit', function(even
 function toggleVisibility() {
     const learner = document.getElementById('learner');
     const student = document.getElementById('student');
-    
+
     // Toggle the 'visible' class between the two elements
     learner.classList.toggle('visible');
     student.classList.toggle('visible');
@@ -132,6 +132,28 @@ function toggleVisibility() {
 
 // Toggle visibility every 3 seconds
 setInterval(toggleVisibility, 3000);
+
+// Function to cycle through title parts with fade in/out
+function cycleTitles() {
+    const titles = ['title1', 'title2', 'title3'];
+    let currentIndex = 0;
+
+    setInterval(() => {
+        // Hide all titles
+        titles.forEach(id => {
+            document.getElementById(id).classList.remove('visible');
+        });
+
+        // Show current title
+        document.getElementById(titles[currentIndex]).classList.add('visible');
+
+        // Move to next title
+        currentIndex = (currentIndex + 1) % titles.length;
+    }, 3000);
+}
+
+// Start cycling titles when page loads
+document.addEventListener('DOMContentLoaded', cycleTitles);
 
 // Function to toggle between light and dark mode
 function toggleTheme() {
@@ -181,20 +203,53 @@ window.addEventListener('load', () => {
     }
 });
 
-// Function to toggle collapsible sections
-function toggleSection(sectionId) {
+// Function to toggle collapsible sections with circular reveal
+function toggleSection(sectionId, event) {
     const section = document.getElementById(sectionId);
     const arrow = section.querySelector('.section-arrow');
-
-    if (section.classList.contains('section-collapsed')) {
-        // Expand the section
-        section.classList.remove('section-collapsed');
-        arrow.style.transform = 'rotate(180deg)';
-    } else {
-        // Collapse the section
-        section.classList.add('section-collapsed');
-        arrow.style.transform = 'rotate(0deg)';
+    
+    // Create overlay if it doesn't exist
+    let overlay = document.querySelector('.circular-reveal-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'circular-reveal-overlay';
+        document.body.appendChild(overlay);
     }
+    
+    // Get click position
+    let clickX = 50, clickY = 50;
+    if (event && event.clientX && event.clientY) {
+        clickX = (event.clientX / window.innerWidth) * 100;
+        clickY = (event.clientY / window.innerHeight) * 100;
+    }
+    
+    // Set animation origin
+    overlay.style.setProperty('--click-x', clickX + '%');
+    overlay.style.setProperty('--click-y', clickY + '%');
+    
+    // Show overlay
+    overlay.style.setProperty('--reveal-size', '0%');
+    overlay.classList.add('active');
+    
+    setTimeout(() => {
+        overlay.style.setProperty('--reveal-size', '100%');
+    }, 50);
+    
+    setTimeout(() => {
+        if (section.classList.contains('section-collapsed')) {
+            // Expand the section
+            section.classList.remove('section-collapsed');
+            arrow.style.transform = 'rotate(180deg)';
+        } else {
+            // Collapse the section
+            section.classList.add('section-collapsed');
+            arrow.style.transform = 'rotate(0deg)';
+        }
+        
+        setTimeout(() => {
+            overlay.classList.remove('active');
+        }, 300);
+    }, 400);
 }
 
 // Function to toggle project details
@@ -343,61 +398,18 @@ window.addEventListener('resize', () => {
 // Social Media Links Toggle Functionality
 function toggleSocialLinks() {
     const socialLinks = document.getElementById('socialLinks');
-    const mainContent = document.querySelector('.container');
-    const header = document.querySelector('header');
-    const footer = document.querySelector('footer');
-
+    
     if (socialLinks.classList.contains('show')) {
-        // Hide social links
         socialLinks.classList.remove('show');
-        // Show main content
-        mainContent.style.display = 'block';
-        header.style.display = 'block';
-        footer.style.display = 'block';
     } else {
-        // Show social links
         socialLinks.classList.add('show');
-        // Hide main content
-        mainContent.style.display = 'none';
-        header.style.display = 'none';
-        footer.style.display = 'none';
     }
-}
-
-// Show social links on hover
-function showSocialLinks() {
-    const socialLinks = document.getElementById('socialLinks');
-    const mainContent = document.querySelector('.container');
-    const header = document.querySelector('header');
-    const footer = document.querySelector('footer');
-
-    // Show social links
-    socialLinks.classList.add('show');
-    // Hide main content
-    mainContent.style.display = 'none';
-    header.style.display = 'none';
-    footer.style.display = 'none';
-}
-
-// Hide social links when not hovering
-function hideSocialLinks() {
-    const socialLinks = document.getElementById('socialLinks');
-    const mainContent = document.querySelector('.container');
-    const header = document.querySelector('header');
-    const footer = document.querySelector('footer');
-
-    // Hide social links
-    socialLinks.classList.remove('show');
-    // Show main content
-    mainContent.style.display = 'block';
-    header.style.display = 'block';
-    footer.style.display = 'block';
 }
 
 // Close social links when clicking the close button
 document.getElementById('closeSocial').addEventListener('click', function(e) {
     e.stopPropagation();
-    toggleSocialLinks();
+    document.getElementById('socialLinks').classList.remove('show');
 });
 
 // Close social links when clicking outside
@@ -410,7 +422,7 @@ document.addEventListener('click', function(e) {
         !socialLinks.contains(e.target) &&
         !profilePicture.contains(e.target) &&
         !closeButton.contains(e.target)) {
-        toggleSocialLinks();
+        socialLinks.classList.remove('show');
     }
 });
 
@@ -420,16 +432,32 @@ document.getElementById('profilePicture').addEventListener('click', function(e) 
     toggleSocialLinks();
 });
 
-// Show social links on hover
+// Show social links on hover with delay to prevent flashing
+let hoverTimeout;
 document.getElementById('profilePicture').addEventListener('mouseenter', function(e) {
-    e.stopPropagation();
-    showSocialLinks();
+    clearTimeout(hoverTimeout);
+    hoverTimeout = setTimeout(() => {
+        document.getElementById('socialLinks').classList.add('show');
+    }, 300);
 });
 
-// Hide social links when mouse leaves profile picture
+// Hide social links when mouse leaves with delay
 document.getElementById('profilePicture').addEventListener('mouseleave', function(e) {
-    e.stopPropagation();
-    hideSocialLinks();
+    clearTimeout(hoverTimeout);
+    hoverTimeout = setTimeout(() => {
+        document.getElementById('socialLinks').classList.remove('show');
+    }, 300);
+});
+
+// Keep social links open when hovering over them
+document.getElementById('socialLinks').addEventListener('mouseenter', function() {
+    clearTimeout(hoverTimeout);
+});
+
+document.getElementById('socialLinks').addEventListener('mouseleave', function() {
+    hoverTimeout = setTimeout(() => {
+        document.getElementById('socialLinks').classList.remove('show');
+    }, 300);
 });
 
 // Interactive Skills Assessment Functionality
@@ -673,3 +701,170 @@ class SkillsAssessment {
 document.addEventListener('DOMContentLoaded', () => {
     new SkillsAssessment();
 });
+
+// Contact Form Validation and Submission
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Clear previous errors
+            clearErrors();
+
+            // Validate form
+            if (validateContactForm()) {
+                // Submit form
+                submitContactForm();
+            }
+        });
+
+        // Real-time validation
+        const inputs = contactForm.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+        });
+    }
+});
+
+function validateContactForm() {
+    let isValid = true;
+
+    const name = document.getElementById('contact-name');
+    const email = document.getElementById('contact-email');
+    const message = document.getElementById('contact-message');
+
+    if (!validateField(name)) isValid = false;
+    if (!validateField(email)) isValid = false;
+    if (!validateField(message)) isValid = false;
+
+    return isValid;
+}
+
+function validateField(field) {
+    const value = field.value.trim();
+    const fieldName = field.name;
+    const errorElement = document.getElementById(fieldName + '-error');
+
+    let isValid = true;
+    let errorMessage = '';
+
+    switch (fieldName) {
+        case 'name':
+            if (!value) {
+                errorMessage = 'Name is required';
+                isValid = false;
+            } else if (value.length < 2) {
+                errorMessage = 'Name must be at least 2 characters';
+                isValid = false;
+            }
+            break;
+        case 'email':
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!value) {
+                errorMessage = 'Email is required';
+                isValid = false;
+            } else if (!emailRegex.test(value)) {
+                errorMessage = 'Please enter a valid email address';
+                isValid = false;
+            }
+            break;
+        case 'message':
+            if (!value) {
+                errorMessage = 'Message is required';
+                isValid = false;
+            } else if (value.length < 10) {
+                errorMessage = 'Message must be at least 10 characters';
+                isValid = false;
+            }
+            break;
+    }
+
+    if (!isValid) {
+        errorElement.textContent = errorMessage;
+        errorElement.style.display = 'block';
+        field.classList.add('error');
+    } else {
+        errorElement.textContent = '';
+        errorElement.style.display = 'none';
+        field.classList.remove('error');
+    }
+
+    return isValid;
+}
+
+function clearErrors() {
+    const errorElements = document.querySelectorAll('.error-message');
+    errorElements.forEach(element => {
+        element.textContent = '';
+        element.style.display = 'none';
+    });
+
+    const inputs = document.querySelectorAll('#contactForm input, #contactForm textarea');
+    inputs.forEach(input => {
+        input.classList.remove('error');
+    });
+}
+
+function submitContactForm() {
+    const form = document.getElementById('contactForm');
+    const statusElement = document.getElementById('contact-form-status');
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    // Show loading state
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    statusElement.textContent = '';
+    statusElement.className = '';
+
+    // Create FormData object
+    const formData = new FormData(form);
+
+    // For demo purposes, simulate form submission
+    // In a real implementation, you would send this to your backend or Formspree
+    setTimeout(() => {
+        // Simulate success
+        statusElement.textContent = 'Thank you! Your message has been sent successfully. I\'ll get back to you soon.';
+        statusElement.className = 'success-message';
+        form.reset();
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send Message';
+
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+            statusElement.textContent = '';
+            statusElement.className = '';
+        }, 5000);
+    }, 2000);
+
+    // Real implementation would look like this:
+    /*
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            statusElement.textContent = 'Thank you! Your message has been sent successfully.';
+            statusElement.className = 'success-message';
+            form.reset();
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    })
+    .catch(error => {
+        statusElement.textContent = 'Oops! There was a problem sending your message. Please try again.';
+        statusElement.className = 'error-message';
+        console.error('Error:', error);
+    })
+    .finally(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send Message';
+    });
+    */
+}

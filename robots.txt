@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://goanarchot.github.io/sitemap.xml
+
+# Disallow crawling of any admin or private directories
+Disallow: /admin/
+Disallow: /private/
+
+# Allow crawling of main content
+Allow: /index.html
+Allow: /blog.html
+Allow: /styles.css
+Allow: /javascript.js

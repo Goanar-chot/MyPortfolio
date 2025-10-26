@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Portfolio Experience - Goanar Chot</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="premium-styles.css">
+    <link rel="stylesheet" href="3d-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="experience-header">
+            <h1>🥽 3D Portfolio Experience</h1>
+            <p>Explore Goanar's portfolio in an immersive 3D environment</p>
+            <div class="experience-controls">
+                <button class="control-btn" onclick="enterVRMode()" title="VR Mode">
+                    <i class="fas fa-vr-cardboard"></i> VR Mode
+                </button>
+                <button class="control-btn" onclick="toggleFullscreen()" title="Fullscreen">
+                    <i class="fas fa-expand"></i> Fullscreen
+                </button>
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+            </div>
+        </header>
+
+        <!-- 3D Scene Container -->
+        <div class="scene-container">
+            <div id="threejs-container"></div>
+            
+            <!-- Loading Screen -->
+            <div id="loadingScreen" class="loading-screen">
+                <div class="loading-content">
+                    <div class="loading-spinner"></div>
+                    <h3>Loading 3D Experience...</h3>
+                    <div class="loading-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="loadingProgress"></div>
+                        </div>
+                        <span id="loadingText">Initializing...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3D Navigation -->
+            <div class="scene-navigation">
+                <div class="nav-section active" data-scene="office">
+                    <i class="fas fa-building"></i>
+                    <span>Virtual Office</span>
+                </div>
+                <div class="nav-section" data-scene="skills">
+                    <i class="fas fa-cogs"></i>
+                    <span>Skills Lab</span>
+                </div>
+                <div class="nav-section" data-scene="projects">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Project Gallery</span>
+                </div>
+                <div class="nav-section" data-scene="network">
+                    <i class="fas fa-network-wired"></i>
+                    <span>Network Sim</span>
+                </div>
+            </div>
+
+            <!-- Scene Info Panel -->
+            <div class="scene-info">
+                <div class="info-content">
+                    <h3 id="sceneTitle">Virtual Office</h3>
+                    <p id="sceneDescription">Welcome to Goanar's virtual workspace. Click on objects to interact and learn more!</p>
+                    <div class="interaction-hints">
+                        <div class="hint">
+                            <i class="fas fa-mouse"></i>
+                            <span>Click & Drag to rotate</span>
+                        </div>
+                        <div class="hint">
+                            <i class="fas fa-scroll"></i>
+                            <span>Scroll to zoom</span>
+                        </div>
+                        <div class="hint">
+                            <i class="fas fa-hand-pointer"></i>
+                            <span>Click objects to interact</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Hotspots -->
+            <div class="hotspots-container" id="hotspotsContainer">
+                <!-- Dynamic hotspots will be added here -->
+            </div>
+        </div>
+
+        <!-- AR Experience -->
+        <div class="ar-section">
+            <h2>📱 Augmented Reality Business Card</h2>
+            <div class="ar-container">
+                <div class="ar-preview">
+                    <div class="business-card">
+                        <div class="card-front">
+                            <h3>Goanar Chot</h3>
+                            <p>IT Support Analyst</p>
+                            <p>Cybersecurity Professional</p>
+                            <div class="qr-code">
+                                <div class="qr-placeholder">
+                                    <i class="fas fa-qrcode"></i>
+                                    <span>Scan for AR</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ar-instructions">
+                    <h4>How to use AR Business Card:</h4>
+                    <ol>
+                        <li>Open your phone's camera app</li>
+                        <li>Point camera at the QR code</li>
+                        <li>Tap the notification to open AR experience</li>
+                        <li>See Goanar's portfolio come to life!</li>
+                    </ol>
+                    <button class="ar-btn" onclick="generateARCode()">
+                        <i class="fas fa-magic"></i> Generate AR Code
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive 3D Models -->
+        <div class="models-showcase">
+            <h2>🎯 Interactive 3D Models</h2>
+            <div class="models-grid">
+                <div class="model-card">
+                    <div class="model-viewer" data-model="network-topology">
+                        <div class="model-placeholder">
+                            <i class="fas fa-network-wired"></i>
+                            <span>Network Topology</span>
+                        </div>
+                    </div>
+                    <h4>Network Infrastructure</h4>
+                    <p>Interactive 3D model of enterprise network setup</p>
+                    <button class="view-model-btn" onclick="loadModel('network')">
+                        View in 3D
+                    </button>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-viewer" data-model="security-architecture">
+                        <div class="model-placeholder">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Security Architecture</span>
+                        </div>
+                    </div>
+                    <h4>Security Framework</h4>
+                    <p>Cybersecurity defense layers visualization</p>
+                    <button class="view-model-btn" onclick="loadModel('security')">
+                        View in 3D
+                    </button>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-viewer" data-model="cloud-infrastructure">
+                        <div class="model-placeholder">
+                            <i class="fas fa-cloud"></i>
+                            <span>Cloud Architecture</span>
+                        </div>
+                    </div>
+                    <h4>AWS Infrastructure</h4>
+                    <p>Cloud services and deployment model</p>
+                    <button class="view-model-btn" onclick="loadModel('cloud')">
+                        View in 3D
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- VR Experience -->
+        <div class="vr-section">
+            <h2>🥽 Virtual Reality Portfolio Tour</h2>
+            <div class="vr-experience">
+                <div class="vr-preview">
+                    <div class="vr-scene">
+                        <div class="vr-environment">
+                            <div class="vr-objects">
+                                <div class="vr-object desk"></div>
+                                <div class="vr-object computer"></div>
+                                <div class="vr-object certificates"></div>
+                                <div class="vr-object projects"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vr-info">
+                    <h4>Immersive Portfolio Experience</h4>
+                    <p>Step into Goanar's virtual office and explore his work environment, projects, and achievements in VR.</p>
+                    <div class="vr-features">
+                        <div class="vr-feature">
+                            <i class="fas fa-eye"></i>
+                            <span>360° Environment</span>
+                        </div>
+                        <div class="vr-feature">
+                            <i class="fas fa-hand-paper"></i>
+                            <span>Hand Tracking</span>
+                        </div>
+                        <div class="vr-feature">
+                            <i class="fas fa-microphone"></i>
+                            <span>Voice Commands</span>
+                        </div>
+                    </div>
+                    <button class="vr-btn" onclick="launchVRExperience()">
+                        <i class="fas fa-vr-cardboard"></i> Launch VR Tour
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model Viewer Modal -->
+    <div id="modelModal" class="model-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modelTitle">3D Model Viewer</h3>
+                <div class="model-controls">
+                    <button class="control-btn" onclick="resetModelView()">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                    <button class="control-btn" onclick="toggleWireframe()">
+                        <i class="fas fa-cube"></i> Wireframe
+                    </button>
+                    <button class="close-modal">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="modelViewer" class="model-viewer-container"></div>
+                <div class="model-info">
+                    <div class="model-details" id="modelDetails">
+                        <!-- Model information will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="javascript.js"></script>
+    <script src="premium-animations.js"></script>
+    <script src="3d-experience-features.js"></script>
+</body>
+</html>
